@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="/../stylesheets/main.css" />
+  </head>
+  <body>
+  <form action="/tipsCalc" method="post" id="formID">
+  <ul class="tipForm">
+        <label><h1>Ken Ken Tip Calculator</h1></label>
+  <li>
+        <label>Entry Type<span class="required">*</span></label>
+        <select name="dropType" class="field-select" required = "true" />
+        <option value="Floor">Floor</option>
+        <option value="Floor-Lunch">Floor - Lunch</option>
+        <option value="Bar">Bar</option>
+        <option value="Suika">Suika</option>
+        </select>
+  </li>
+  <li>
+    <label>Your Name <span class="required">*</span></label>
+      <select name="workerName" class="field-select" required = "true"/>
+        <option value="Brynn">Brynn</option>
+        <option value="Charles">Charles</option>
+        <option value="Col">Col</option>
+        <option value="Lina">Lina</option>
+        <option value="Louis">Louis</option>
+        <option value="Pramesh">Pramesh</option>
+        <option value="Rachel">Rachel</option>
+        <option value="Serena">Serena</option>
+        <option value="Sho">Sho</option>
+        <option value="Sovin">Sovin</option>
+        <option value="Toshi">Toshi</option>
+        <option value="Other">Other - enter in notes area</option>    
+      </select>
+  </li>
+  <li>
+        <label>Credit Card Sales<span class="required">*</span>
+        {% if validCreditCardSalesEntry == False %} 
+        <h3 class="alert warning">Error Below in Credit Card Entry (Only DIGITS Please)</h3>
+        {% endif %}</label>
+        <input type="number" name="creditCardSales" class="field-long" title="Combined Credit Card Sales" placeholder="Total from cc printout" required = "true" value="{{ creditCardSales }}" />
+  </li>
+  <li>
+        <label>Cash Sales Before Tip Split <span class="required">*</span>
+        {% if validCashSalesEntry == False %} 
+        <h3 class="alert warning">Error Below in Cash Sales Entry (Only DIGITS Please)</h3>
+        {% endif %}
+       </label>
+        <input type="number" name="cashSales" class="field-long" title="Cash Sales" placeholder="Cash in Drawer - $200 (To Reset Drawer)" required = "true" value="{{ cashSales }}" />
+  </li>
+  <li>
+        <label>Credit Card Tips: <span class="required">*</span>
+        {% if validCreditCardTipsEntry == False %} 
+        <h3 class="alert warning">Error Below in Credit Card Entry (Only DIGITS Please)</h3>
+        {% endif %}
+        </label>
+        <input type="number" name="creditCardTips" class="field-long" title="Credit Card Tips" placeholder="All CC Tips from Printout" required = "true" value="{{ cardTips }}"  />
+  </li>
+  <li>
+        <label>Cash Tips: <span class="required">*</span>
+        {% if validCashTipsEntry == False %} 
+        <h3 class="alert warning">Error Below in Cash Tips Entry (Only DIGITS Please))</h3>
+        {% endif %}
+        </label>
+        <input type="number" name="cashTips" class="field-long" title="Cash Tips" placeholder="Jar Cash Tips" required = "true" value="{{ cashTips }}" />
+  </li>
+  <li>
+        <label>Notes <span class="required">*</span></label>
+        <textarea name="notesContent" id="field5" class="field-long field-textarea" placeholder="Any Notes of Importance" value="{{ notesContent }}" ></textarea>
+    </li>
+    <li>
+        <input type="submit" value="Calculate Tips" />
+    </li>
+</ul>
+</form>
+</body>
+</html>
+{% endautoescape %}

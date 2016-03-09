@@ -1,0 +1,161 @@
+html {background-color:#eee;}
+
+body {
+  font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  background-color:#eee;
+}
+
+input[type="email"] {
+  border: 1px solid #ddd;
+  padding: 4px 8px;
+}
+
+.alert { 
+    border-radius:8px;
+    color:white;
+    font-size:13px;
+    padding:10px 10px 10px 10px;
+    margin-left:0px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.warning {
+    background-color:red;
+    color:white;
+}
+.notice { 
+    background-color:#a6ca8a;
+    color:white;
+}
+
+input[type="email"]:focus {
+  border: 1px solid #000;
+}
+
+input[type="submit"] {
+  font-weight: bold;
+  padding: 4px 8px;
+  border:1px solid #000;
+  background: black;
+  color:#fff;
+}
+
+form {
+  margin: 0 auto;
+}
+
+.p {
+  padding-top: 30px;
+}
+
+.tipCalc {
+    margin:10px auto;
+    border:8px solid #e6e6e5;
+    background-color:white;
+    max-width: 400px;
+    padding: 10px 12px 10px 10px;
+}
+
+.tipForm {
+    margin:10px auto;
+    border:8px solid #e6e6e5;
+    background-color:white;
+    max-width: 400px;
+    padding: 10px 12px 10px 10px;
+}
+.tipForm li {
+    padding: 0;
+    display: block;
+    list-style: none;
+    margin: 10px 0 0 0;
+}
+.tipForm label{
+    margin:0 0 3px 0;
+    padding:0px;
+    display:block;
+    font-weight: bold;
+}
+.tipForm input[type=text], 
+.tipForm input[type=date],
+.tipForm input[type=datetime],
+.tipForm input[type=number],
+.tipForm input[type=search],
+.tipForm input[type=time],
+.tipForm input[type=url],
+.tipForm input[type=email],
+textarea, 
+select{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border:1px solid #BEBEBE;
+    padding: 7px;
+    margin:0px;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;  
+}
+.tipForm input[type=text]:focus, 
+.tipForm input[type=date]:focus,
+.tipForm input[type=datetime]:focus,
+.tipForm input[type=number]:focus,
+.tipForm input[type=search]:focus,
+.tipForm input[type=time]:focus,
+.tipForm input[type=url]:focus,
+.tipForm input[type=email]:focus,
+.tipForm textarea:focus, 
+.tipForm select:focus{
+    -moz-box-shadow: 0 0 8px #88D5E9;
+    -webkit-box-shadow: 0 0 8px #88D5E9;
+    box-shadow: 0 0 8px #88D5E9;
+    border: 1px solid #88D5E9;
+}
+.tipForm .field-divided{
+    width: 49%;
+}
+
+.tipForm .field-long{
+    width: 100%;
+}
+.tipForm .field-select{
+    width: 100%;
+}
+.tipForm .field-textarea{
+    height: 100px;
+}
+.tipForm input[type=submit], .tipForm input[type=button]{
+    background: #4B99AD;
+    padding: 8px 15px 8px 15px;
+    width:400px;
+    font-size:16px;
+    border: none;
+    color: #fff;
+}
+.tipForm input[type=submit]:hover, .tipForm input[type=button]:hover{
+    background: #4691A4;
+    box-shadow:none;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+}
+.tipForm .required{
+    color:red;
+}
+
+
+.tableViewDrops {border-collapse:collapse;border-spacing:0;border-color:#ccc; }
+.tableViewDrops .header {font-weight: bold; text-align:left; vertical-align:bottom}
+.tableViewDrops td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tableViewDrops th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tableViewDrops .on-column{vertical-align:top}
+.tableViewDrops .off-column{background-color:#f9f9f9;vertical-align:top}
+
+.tableViewDrops_notes {border-collapse:collapse;border-spacing:0;border-color:#ccc; width:400px;}
+
+.graphWidget {
+    margin-top:10px;
+    width:400px;
+    height:250px;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="/../stylesheets/main.css" />
+</head>
+  <body>
+<table class="tableViewDrops">
+  <tr>
+    <th class="header">Drop Type</th>
+    <th class="header">DB Write Date</th>
+    <th class="header">Service Date</th>
+    <th class="header">Name</th>
+    <th class="header">Credit <Br>Card Sales</th>
+    <th class="header">Cash Sales</th>
+    <th class="header">Credit <Br>Card Tips</th>
+    <th class="header">Cash Tips</th>
+    <th class="header">Total Sales</th>
+    <th class="header">Total Tips</th>
+    <th class="header">Tip Rate</th>
+    <th class="header">Cash In <br>Envelope </th>
+  </tr>
+  {% for cashdrop in cashdrops %}
+  <tr>
+    <td class="on-column">{{ cashdrop.dropType }}</td>
+    <td class="off-column">{{ cashdrop.date }}</td>
+    <td class="on-column">{{ cashdrop.dateOnEnvelope }}</td>
+    <td class="off-column">{{ cashdrop.author }}</td>
+    <td class="on-column">{{ cashdrop.creditCardSales }}</td>
+    <td class="off-column">{{ cashdrop.cashSales }}</td>
+    <td class="on-column">{{ cashdrop.creditCardTips }}</td>
+    <td class="off-column">{{ cashdrop.cashTips }}</td>
+    <td class="on-column">{{ cashdrop.totalSales }}</td>
+    <td class="off-column">{{ cashdrop.totalTips }}</td>
+    <td class="on-column">{{ cashdrop.tipRate }}</td>
+    <td class="off-column">{{ cashdrop.cashInEnvelope }}</td>
+    </tr>
+  {% endfor %}  
+</table>
+
+  </body>
+</html>
+{% endautoescape %}
