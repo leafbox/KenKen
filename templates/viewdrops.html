@@ -19,25 +19,26 @@
     <th class="header">Total Tips</th>
     <th class="header">Tip Rate</th>
     <th class="header">Cash In <br>Envelope </th>
+      <th class="header">Notes</th>
   </tr>
   {% for cashdrop in cashdrops %}
   <tr>
-    <td class="on-column">{{ cashdrop.dropType }}</td>
-    <td class="off-column">{{ cashdrop.date }}</td>
-    <td class="on-column">{{ cashdrop.dateOnEnvelope }}</td>
-    <td class="off-column">{{ cashdrop.author }}</td>
-    <td class="on-column">{{ cashdrop.creditCardSales }}</td>
-    <td class="off-column">{{ cashdrop.cashSales }}</td>
-    <td class="on-column">{{ cashdrop.creditCardTips }}</td>
-    <td class="off-column">{{ cashdrop.cashTips }}</td>
-    <td class="on-column">{{ cashdrop.totalSales }}</td>
-    <td class="off-column">{{ cashdrop.totalTips }}</td>
-    <td class="on-column">{{ cashdrop.tipRate }}</td>
-    <td class="off-column">{{ cashdrop.cashInEnvelope }}</td>
+    <td>{{ cashdrop.dropType }}</td>
+    <td>{{ cashdrop.date }}</td>
+    <td>{{ cashdrop.dateOnEnvelope }}</td>
+    <td>{{ cashdrop.author }}</td>
+    <td>{{ cashdrop.creditCardSales }}</td>
+    <td>{{ cashdrop.cashSales }}</td>
+    <td>{{ cashdrop.creditCardTips }}</td>
+    <td>{{ cashdrop.cashTips }}</td>
+    <td>{{ cashdrop.totalSales }}</td>
+    <td>{{ cashdrop.totalTips }}</td>
+    <td>{{ cashdrop.tipRate }}</td>
+    <td>{{ cashdrop.cashInEnvelope }}</td>
+    <td>{{ cashdrop.notesContent }}</td>
     </tr>
   {% endfor %}  
 </table>
-
   </body>
 </html>
 {% endautoescape %}
