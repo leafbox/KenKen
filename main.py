@@ -265,7 +265,7 @@ class dashBoard(webapp2.RequestHandler):
 		cashdrops = CashDrop.query_book(ancestor_key).fetch()
 
 		template_values = {
-				'cashdrops': cashdrops,
+				'cashdrops': cashdrops
         }
 
 		template = JINJA_ENVIRONMENT.get_template('templates/dashboard.html')

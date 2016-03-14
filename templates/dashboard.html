@@ -4,6 +4,8 @@
 <head>
   <link type="text/css" rel="stylesheet" href="/../stylesheets/main.css" />
 </head>
+
+<head>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
    <script type="text/javascript">
@@ -12,9 +14,9 @@
 
       function drawStuff() {
         var data = new google.visualization.arrayToDataTable([
-          ['Date', 'Total Sales', 'Total Tips', 'Tip Rate%'],
+          ['Date', 'Total Sales', 'Tip Rate%'],
           {% for cashdrop in cashdrops %}
-          ['{{ cashdrop.dateOnEnvelope }}', {{ cashdrop.totalSales }}, {{ cashdrop.totalTips }}, {{ cashdrop.tipRate }} ],
+          ['{{ cashdrop.dateOnEnvelope }}', {{ cashdrop.totalSales }}, {{ cashdrop.tipRate }} ],
         {% endfor %} 
         ]);
         
@@ -37,16 +39,15 @@
           }
         };
 
-      var chart = new google.charts.Bar(document.getElementById('dual_y_div'));
+      var chart = new google.charts.Bar(document.getElementById('cashVsTipRate'));
       chart.draw(data, options);
     };
     </script>
+
   </head>
 
-
-
 <body>
-
+<br>
 <table class="tableViewDrops">
   <tr>
     <th class="header">Drop Type</th>
@@ -79,8 +80,12 @@
     </tr>
   {% endfor %}  
 </table>
-
+<br>
+<div id="cashVsTipRate" class="graphWidget"></div>
+<br>
 <div id="dual_y_div" class="graphWidget"></div>
+<br>
+
 
   </body>
 </html>
