@@ -159,7 +159,13 @@ table.tableViewDrops tr:hover td {
 .tableViewDrops_notes {border-collapse:collapse;border-spacing:0;border-color:#ccc; width:400px;}
 
 .graphWidget {
-    margin-top:10px;
-    width:400px;
-    height:250px;
+    float:left;
+    width:33%;
+    padding:10px;
+    display: block;
+
+    margin:10px;
+    border:1px solid #BEBEBE;
+    background: white;
+
 }

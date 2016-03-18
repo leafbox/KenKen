@@ -10,24 +10,26 @@
     
    <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
+
       google.charts.setOnLoadCallback(drawStuff);
 
       function drawStuff() {
-        var data = new google.visualization.arrayToDataTable([
-          ['Date', 'Total Sales', 'Tip Rate%'],
+
+        var floorVsTipsData = new google.visualization.arrayToDataTable([
+          ['Date', 'Floor Sales', 'Tip Rate%'],
           {% for cashdrop in cashdrops %}
-          ['{{ cashdrop.dateOnEnvelope }}', {{ cashdrop.totalSales }}, {{ cashdrop.tipRate }} ],
-        {% endfor %} 
+              {% if cashdrop.dropType == 'Floor' or cashdrop.dropType == 'Floor-Lunch' %}
+              ['{{ cashdrop.dateOnEnvelope }}', {{ cashdrop.cashSales }}, {{ cashdrop.tipRate }} ],
+              {% endif %}
+                {% endfor %}
         ]);
-        
-        var options = {
-          width: 500,
+
+        var floorVsTipRateOptions = {
           chart: {
-            title: 'Total Sales by Week',
-            subtitle: 'Total Sales, Tips',
+            title: 'Floor Sales Vs TipRate',
           },
           series: {
-            0: { axis: 'Total Sales' }, // Bind series 0 to an axis named 'distance'.
+            0: { axis: 'Floor Sales' }, // Bind series 0 to an axis named 'distance'.
             1: { axis: 'Tip Rate' } // Bind series 1 to an axis named 'brightness'.
           },
           axes: {
@@ -39,8 +41,71 @@
           }
         };
 
-      var chart = new google.charts.Bar(document.getElementById('cashVsTipRate'));
-      chart.draw(data, options);
+       var barVsTipsData = new google.visualization.arrayToDataTable([
+          ['Date', 'Bar Sales', 'Tip Rate%'],
+          {% for cashdrop in cashdrops %}
+              {% if cashdrop.dropType == 'Bar' %}
+              ['{{ cashdrop.dateOnEnvelope }}', {{ cashdrop.cashSales }}, {{ cashdrop.tipRate }} ],
+              {% endif %}
+                {% endfor %}
+        ]);
+
+      var barVsTipRateOptions = {
+          chart: {
+            title: 'Bar Sales Vs TipRate',
+          },
+          series: {
+            0: { axis: 'Bar Sales' }, // Bind series 0 to an axis named 'distance'.
+            1: { axis: 'Tip Rate' } // Bind series 1 to an axis named 'brightness'.
+          },
+          axes: {
+            y: {
+              distance: {label: '$'}, // Left y-axis.
+              brightness: {side: 'right', label: 'apparent magnitude'} // Right y-axis.
+            }
+
+          }
+        };
+
+      var suikaVsTipsData = new google.visualization.arrayToDataTable([
+          ['Date', 'Bar Sales', 'Tip Rate%'],
+          {% for cashdrop in cashdrops %}
+              {% if cashdrop.dropType == 'Suika' %}
+              ['{{ cashdrop.dateOnEnvelope }}', {{ cashdrop.cashSales }}, {{ cashdrop.tipRate }} ],
+              {% endif %}
+                {% endfor %}
+        ]);
+
+      var suikaVsTipRateOptions = {
+          chart: {
+            title: 'Suika Sales Vs TipRate',
+          },
+          series: {
+            0: { axis: 'Suika Sales' }, // Bind series 0 to an axis named 'distance'.
+            1: { axis: 'Tip Rate' } // Bind series 1 to an axis named 'brightness'.
+          },
+          axes: {
+            y: {
+              distance: {label: '$'}, // Left y-axis.
+              brightness: {side: 'right', label: 'apparent magnitude'} // Right y-axis.
+            }
+
+          }
+        };
+
+      var floorVsTipRateChart = new google.charts.Bar(document.getElementById('floorCashVsTipRate'));
+
+      var barVsTipRateChart = new google.charts.Bar(document.getElementById('barSalesVsTipRate'));
+
+      var suikaVsTipRateChart = new google.charts.Bar(document.getElementById('suikaSalesVsTipRate'));
+
+
+      floorVsTipRateChart.draw(floorVsTipsData, floorVsTipRateOptions);
+
+      barVsTipRateChart.draw(barVsTipsData, barVsTipRateOptions);
+
+      suikaVsTipRateChart.draw(suikaVsTipsData, suikaVsTipRateOptions);
+
     };
     </script>
 
@@ -48,6 +113,7 @@
 
 <body>
 <br>
+<h1>Ken Ken Dashboard</h1>
 <table class="tableViewDrops">
   <tr>
     <th class="header">Drop Type</th>
@@ -62,8 +128,9 @@
     <th class="header">Total Tips</th>
     <th class="header">Tip Rate</th>
     <th class="header">Cash In <br>Envelope </th>
+      <th class="header">Notes</th>
   </tr>
-  {% for cashdrop in cashdrops %}
+    {% for cashdrop in cashdrops %}
   <tr>
     <td class="on-column">{{ cashdrop.dropType }}</td>
     <td class="off-column">{{ cashdrop.date }}</td>
@@ -77,16 +144,19 @@
     <td class="off-column">{{ cashdrop.totalTips }}</td>
     <td class="on-column">{{ cashdrop.tipRate }}</td>
     <td class="off-column">{{ cashdrop.cashInEnvelope }}</td>
+      <td class="off-column">{{ cashdrop.notesContent }}</td>
     </tr>
   {% endfor %}  
 </table>
 <br>
-<div id="cashVsTipRate" class="graphWidget"></div>
-<br>
-<div id="dual_y_div" class="graphWidget"></div>
-<br>
 
+<div id="floorCashVsTipRate" class="graphWidget"></div>
 
-  </body>
+<div id="barSalesVsTipRate" class="graphWidget"></div>
+
+<div id="suikaSalesVsTipRate" class="graphWidget"></div>
+
+<br>
+</body>
 </html>
 {% endautoescape %}
