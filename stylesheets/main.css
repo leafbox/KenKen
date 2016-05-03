@@ -158,11 +158,14 @@ table.tableViewDrops tr:hover td {
 
 .tableViewDrops_notes {border-collapse:collapse;border-spacing:0;border-color:#ccc; width:400px;}
 
+#piechart_3d {
+
+    width:350px;
+}
+
 .graphWidget {
-    float:left;
     width:33%;
     padding:10px;
-    display: block;
 
     margin:10px;
     border:1px solid #BEBEBE;
