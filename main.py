@@ -36,12 +36,13 @@ def validate_CashFormItem(cashItem):
 def get_form_details(form_data):
 	dropType = form_data.request.get('dropType')
 	author = form_data.request.get('workerName')
+	caviarSales = form_data.request.get("caviarSales")
 	creditCardSales = form_data.request.get("creditCardSales")
 	cashSales = form_data.request.get("cashSales")
 	cardTips = form_data.request.get("creditCardTips")
 	cashTips = form_data.request.get("cashTips")
 	notesContent = form_data.request.get("notesContent")
-	return dropType, author, creditCardSales, cashSales, cardTips, cashTips, notesContent
+	return dropType, author,caviarSales, creditCardSales, cashSales, cardTips, cashTips, notesContent
 
 #Start Main Program Elements
 
@@ -53,6 +54,7 @@ def cashdrop_key(cashdrop_name=DEFAULT_CASHDROP_NAME):
 class CashDrop(ndb.Model):
 		dropType = ndb.StringProperty(indexed=True)
 		author = ndb.StringProperty(indexed=True)
+		caviarSales = ndb.IntegerProperty()
 		creditCardSales = ndb.IntegerProperty()
 		cashSales = ndb.IntegerProperty()
 		creditCardTips = ndb.IntegerProperty()
@@ -84,6 +86,7 @@ class MainPage(webapp2.RequestHandler):
   	'validCashTipsEntry' : True,
   	'dropType' : "",
   	'author' : "",
+	  'caviarSales' : "",
   	'creditCardSales' : "",
   	'cashSales' : "",
   	'cardTips' : "",
@@ -99,10 +102,11 @@ class tipsCalc(webapp2.RequestHandler):
 	def post(self):
 
 		#Get Data From Form
-		dropType, author, creditCardSales, cashSales, cardTips, cashTips, notesContent = get_form_details(self)
+		dropType, author, caviarSales, creditCardSales, cashSales, cardTips, cashTips, notesContent = get_form_details(self)
 
 		#Validate Form
 
+		validCaviarSalesEntry = validate_CashFormItem(caviarSales)
 		validCreditCardSalesEntry = validate_CashFormItem(creditCardSales)
 		validCreditCashSalesEntry = validate_CashFormItem(cashSales)
 		validCreditCardTipsEntry = validate_CashFormItem(cardTips)
@@ -110,12 +114,13 @@ class tipsCalc(webapp2.RequestHandler):
 
 		#If Valid Form GO
 
-		if validCreditCardSalesEntry and validCreditCashSalesEntry and validCreditCardTipsEntry and validCreditCashTipsEntry:
+		if  validCaviarSalesEntry and validCreditCardSalesEntry and validCreditCashSalesEntry and validCreditCardTipsEntry and validCreditCashTipsEntry:
 
 			now = get_shift_date() #Get California Time
 
 			totalSales = float(creditCardSales) + float(cashSales)
 			totalTips = float(cardTips) + float(cashTips)
+			caviarSales = float(caviarSales)
 			cashInEnvelope = float(cashSales) - float(cardTips)
 
 			tipRate = round(((totalTips / totalSales) * 100),2) #convert to percentage + round to 2 decimals
@@ -125,6 +130,9 @@ class tipsCalc(webapp2.RequestHandler):
 			hostTips = 0
 			kitchenTips = 0
 			serverTips = 0
+			caviarSuikaTips = 0
+			caviarKitchenTips = 0
+			caviarFloorTips = 0
 
 			if dropType == "Floor-Lunch":
 						tipSplit = True;
@@ -132,6 +140,8 @@ class tipsCalc(webapp2.RequestHandler):
 						hostTips = totalTips * .0
 						kitchenTips = totalTips * .30
 						serverTips = totalTips * .70
+						caviarKitchenTips = caviarSales * .10
+						caviarFloorTips = caviarSales * .10
 
 			if dropType == "Floor":
 					if now.weekday() == 6:
@@ -140,12 +150,16 @@ class tipsCalc(webapp2.RequestHandler):
 							hostTips = totalTips * .0
 							kitchenTips = totalTips * .23
 							serverTips = totalTips * .65
+							caviarKitchenTips = caviarSales * .10
+							caviarFloorTips = caviarSales * .10
 					else:
 							tipSplit = True;
 							barTips = totalTips * .10
 							hostTips = totalTips * .15
 							kitchenTips = totalTips * .20
 							serverTips = totalTips * .55
+							caviarKitchenTips = caviarSales * .10
+							caviarFloorTips = caviarSales * .10
 
 			cashdrop_name = DEFAULT_CASHDROP_NAME
 
@@ -157,6 +171,7 @@ class tipsCalc(webapp2.RequestHandler):
 
 			cashdrop.creditCardSales = int(creditCardSales)
 			cashdrop.cashSales = int(cashSales)
+			cashdrop.caviarSales = int(caviarSales)
 			cashdrop.creditCardTips = int(cardTips)
 			cashdrop.cashTips = int(cashTips)
 
@@ -168,6 +183,10 @@ class tipsCalc(webapp2.RequestHandler):
 			cashdrop.hostTips = hostTips
 			cashdrop.kitchenTips = kitchenTips
 			cashdrop.serverTips = serverTips
+
+			cashdrop.caviarKitchenTips = caviarKitchenTips
+			cashdrop.caviarFloorTips = caviarFloorTips
+			cashdrop.caviarSuikaTips = caviarSuikaTips
 
 			cashdrop.cashInEnvelope = cashInEnvelope
 
@@ -200,6 +219,7 @@ class tipsCalc(webapp2.RequestHandler):
 				'author' : cashdrop.author,
 				'dropType': cashdrop.dropType,
 				'creditCardSales' : cashdrop.creditCardSales,
+				'caviarSales' : cashdrop.caviarSales,
 				'cashSales' : cashdrop.cashSales,
 				'creditCardTips' : cashdrop.creditCardTips,
 				'cashTips' : cashdrop.cashTips,
@@ -210,6 +230,9 @@ class tipsCalc(webapp2.RequestHandler):
 				'hostTips' : cashdrop.hostTips,
 				'kitchenTips' : cashdrop.kitchenTips,
 				'serverTips' : cashdrop.serverTips,
+				'caviarKitchenTips' : cashdrop.caviarKitchenTips,
+				'caviarFloorTips' : cashdrop.caviarFloorTips,
+				'caviarSuikaTips' : cashdrop.caviarSuikaTips,
 				'cashInEnvelope' : cashdrop.cashInEnvelope,
 				'notesContent' : cashdrop.notesContent
         }
@@ -220,7 +243,8 @@ class tipsCalc(webapp2.RequestHandler):
 		else:
 			#generate form to show invalid data
 
-			validCreditCreditCardSalesEntry = validate_CashFormItem(creditCardSales)
+			validCaviarSalesEntry = validate_CashFormItem(caviarSales)
+			validCreditCardSalesEntry = validate_CashFormItem(creditCardSales)
 			validCashSalesEntry = validate_CashFormItem(cashSales)
 			validCreditCardTipsEntry = validate_CashFormItem(cardTips)
 			validCashTipsEntry = validate_CashFormItem(cashTips)
@@ -228,6 +252,7 @@ class tipsCalc(webapp2.RequestHandler):
 			template_values = {
 				'validCreditCardSalesEntry' : validCreditCardSalesEntry,
 				'validCashSalesEntry' : validCashSalesEntry,
+				'validCaviarSalesEntry' : validCaviarSalesEntry,
 				'validCreditCardTipsEntry' : validCreditCardTipsEntry,
 				'validCashTipsEntry' : validCashTipsEntry,
 				'dropType' : dropType,

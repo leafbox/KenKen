@@ -140,6 +140,12 @@ select{
     -moz-box-shadow:none;
     -webkit-box-shadow:none;
 }
+
+.tipForm .smallLink {
+    font-size:x-small;
+    color:blue;
+}
+
 .tipForm .required{
     color:red;
 }

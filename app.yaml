@@ -1,5 +1,5 @@
 application: kenkentips
-version: beta-007
+version: beta-008
 runtime: python27
 api_version: 1
 threadsafe: true

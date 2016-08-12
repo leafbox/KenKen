@@ -24,17 +24,23 @@
         <option value="Charles">Charles</option>
         <option value="Claire">Claire</option>
         <option value="Col">Col</option>
-        <option value="Lina">Lina</option>
+        <option value="Dara">Dara</option>
         <option value="Louis">Louis</option>
         <option value="Pramesh">Pramesh</option>
         <option value="Rachel">Rachel</option>
         <option value="Serena">Serena</option>
         <option value="Sho">Sho</option>
-       <option value="Sora">Soraw</option>
         <option value="Sovin">Sovin</option>
         <option value="Toshi">Toshi</option>
         <option value="Other">Other - enter in notes area</option>    
       </select>
+  </li>
+  <li>
+        <label>Caviar Sales<span class="required">* <a href="https://dashboard.trycaviar.com/performance" class="smallLink">(Link to Caviar Dashboard)</a></span>
+        {% if validCaviarSalesEntry == False %}
+        <h3 class="alert warning">Error Below in Caviar Sales Entry (Only DIGITS Please)</h3>
+        {% endif %}</label>
+        <input type="number" name="caviarSales" class="field-long" title=" Caviar Sales" placeholder="Total Caviar Dashboard" required = "true" value="{{ caviarSales }}" />
   </li>
   <li>
         <label>Credit Card Sales<span class="required">*</span>
